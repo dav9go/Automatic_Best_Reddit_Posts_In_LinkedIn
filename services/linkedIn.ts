@@ -1,4 +1,4 @@
-async function getUserId(linkedInUserLocation) {
+async function getUserId(linkedInUserLocation: string): Promise<string | null> {
   try {
     const response = await fetch(linkedInUserLocation, {
       headers: {
@@ -19,10 +19,10 @@ async function getUserId(linkedInUserLocation) {
   }
 }
 
-async function postInLinkedIn(
-  postObject,
-  linkedInUserLocation,
-  linkedInPostLocation
+export async function postInLinkedIn(
+  postObject: any,
+  linkedInUserLocation: string,
+  linkedInPostLocation: string
 ) {
   const userId = await getUserId(linkedInUserLocation);
   const response = await fetch(linkedInPostLocation, {
@@ -55,9 +55,7 @@ async function postInLinkedIn(
     }),
   });
   const responseText = await response.json();
+  console.log(responseText);
+  console.log(typeof responseText);
   return responseText;
 }
-
-module.exports = {
-  postInLinkedIn,
-};
