@@ -1,3 +1,6 @@
+//Libs
+import axios from "axios";
+
 //Reddit types
 type finishedPost = {
   postTitle: string;
@@ -12,22 +15,22 @@ export async function getRedditPosts(
   maxDescriptionLength: number,
   maxPrevDateMiliseconds: number
 ): Promise<finishedPost | null> {
-  console.log("Start: Fetching reddit posts");
+  console.log("Start: Fetching reddit posts", url);
   try {
-    const callResult = await fetch(url);
-    const finalResult = await callResult.json();
-    if (finalResult.data.children.length > 0) {
+    const callResult = await axios.get(url);
+    if (callResult.data.data.children.length > 0) {
+      console.log(callResult.data.data.children);
       const inDatePosts = filterMaxDatePosts(
-        finalResult.data.children,
+        callResult.data.data.children,
         maxPrevDateMiliseconds
       );
       const postChosen = findBestPost(inDatePosts);
       return buildPost(postChosen, maxDescriptionLength);
     } else {
-      throw new Error("No data found");
+      throw new Error("No posts found");
     }
   } catch (error) {
-    console.error("Error: Couldn't retrieve any posts: ", error);
+    console.error("Error: Fetch posts failed: ", error);
     return null;
   }
 }
@@ -51,7 +54,6 @@ function findBestPost(postsArrayFiltered: any[]) {
   const bestPost = postsArrayFiltered.reduce((best, post) => {
     return post.data.score > best.data.score ? post : best;
   }, postsArrayFiltered[0]);
-
   return bestPost;
 }
 

@@ -55,7 +55,5 @@ export async function postInLinkedIn(
     }),
   });
   const responseText = await response.json();
-  console.log(responseText);
-  console.log(typeof responseText);
   return responseText;
 }
