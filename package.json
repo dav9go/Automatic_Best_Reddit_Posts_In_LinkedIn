@@ -1,10 +1,10 @@
 {
-  "type": "module",
   "name": "linkedinbot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "post": "ts-node script.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,7 +15,9 @@
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   },
   "devDependencies": {
     "@types/node": "^20.12.11"
