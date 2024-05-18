@@ -19,7 +19,6 @@ export async function getRedditPosts(
   try {
     const callResult = await axios.get(url);
     if (callResult.data.data.children.length > 0) {
-      console.log(callResult.data.data.children);
       const inDatePosts = filterMaxDatePosts(
         callResult.data.data.children,
         maxPrevDateMiliseconds
@@ -35,21 +34,21 @@ export async function getRedditPosts(
   }
 }
 
-function filterMaxDatePosts(
+export function filterMaxDatePosts(
   postsArray: any[],
   maxPrevDateMiliseconds: number
 ): any[] {
   console.log("Start: Filtering reddit posts by date");
   const todaysDate = new Date().getTime();
-  const milisecondDifference = todaysDate - maxPrevDateMiliseconds;
+  const minCreationTime = todaysDate - maxPrevDateMiliseconds;
   const insideDatePosts = postsArray.filter((post) => {
-    return todaysDate - post.data.created_utc < milisecondDifference;
+    return post.data.created_utc > minCreationTime;
   });
   return insideDatePosts;
 }
 
 //Get the best post
-function findBestPost(postsArrayFiltered: any[]) {
+export function findBestPost(postsArrayFiltered: any[]) {
   console.log("Start: Searching for the best post");
   const bestPost = postsArrayFiltered.reduce((best, post) => {
     return post.data.score > best.data.score ? post : best;
@@ -58,7 +57,7 @@ function findBestPost(postsArrayFiltered: any[]) {
 }
 
 //Convert to plain text
-function convertRawDescription(
+export function convertRawDescription(
   description: string,
   maxDescriptionLength: number
 ): string {
@@ -72,7 +71,10 @@ function convertRawDescription(
 }
 
 //Get all the necessary and processed information to post on LinkedIn
-function buildPost(data: any, maxDescriptionLength: number): finishedPost {
+export function buildPost(
+  data: any,
+  maxDescriptionLength: number
+): finishedPost {
   const dataSource = data.data;
   const postTitle = dataSource.title;
   const rawPostDescription = dataSource.selftext;
@@ -84,6 +86,7 @@ function buildPost(data: any, maxDescriptionLength: number): finishedPost {
   console.log("Post built with: ");
   console.log("postTitle: ", postTitle);
   console.log("postDescription: ", postDescription);
+  console.log("rawPostDescription: ", rawPostDescription);
   console.log("postUrl: ", postUrl);
   return {
     postTitle,

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "post": "ts-node script.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,8 @@
     "typescript": "^5.4.5"
   },
   "devDependencies": {
-    "@types/node": "^20.12.11"
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.11",
+    "ts-jest": "^29.1.2"
   }
 }
