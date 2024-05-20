@@ -43,7 +43,7 @@ export async function postInLinkedIn(
         specificContent: {
           "com.linkedin.ugc.ShareContent": {
             shareCommentary: {
-              text: `Auto reddit top post of the day - ${postObject.postTitle}\n`,
+              text: `${postObject.postTitle}\n`,
             },
             shareMediaCategory: "ARTICLE",
             media: [

@@ -40,9 +40,14 @@ export function filterMaxDatePosts(
 ): any[] {
   console.log("Start: Filtering reddit posts by date");
   const todaysDate = new Date().getTime();
+
   const minCreationTime = todaysDate - maxPrevDateMiliseconds;
+  console.log("minCreationTime", minCreationTime);
   const insideDatePosts = postsArray.filter((post) => {
-    return post.data.created_utc > minCreationTime;
+    return (
+      Number(String(post.data.created_utc).slice(0, 10)) >
+      Number(String(minCreationTime).slice(0, 10))
+    );
   });
   return insideDatePosts;
 }

@@ -4,11 +4,10 @@ import dotenv from "dotenv";
 import { postInLinkedIn } from "./services/linkedIn";
 import { getRedditPosts } from "./services/reddit";
 //Editable constants - Reddit
-const url: string =
-  "https://www.reddit.com/r/programmerHumor/top.json?raw_json=1";
+const url: string = "https://www.reddit.com/r/reactjs/top.json?raw_json=1";
 const maxDescriptionLength: number = 1200;
 const maxPrevDateDays: number = 1;
-const justTry: boolean = false;
+const justTry: boolean = true;
 //Editable constants - LinkedIn
 const linkedInUserLocation: string = "https://api.linkedin.com/v2/userinfo";
 const linkedInPostLocation: string = "https://api.linkedin.com/v2/ugcPosts";
